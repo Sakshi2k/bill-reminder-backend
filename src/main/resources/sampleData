@@ -1,0 +1,6 @@
+{
+    "title": "Electricity",
+    "desc" : "June electricity bill",
+    "paid": false,
+    "latePayment" : false
+}
