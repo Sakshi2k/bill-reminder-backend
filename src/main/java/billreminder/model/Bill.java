@@ -2,10 +2,10 @@ package billreminder.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
-/*@Document(indexName = "billreminder", shards = 2)
-@Data
-@Setting(settingPath = "static/es-settings.json")*/
 @Entity
 public class Bill implements Serializable {
     @Id
@@ -16,11 +16,11 @@ public class Bill implements Serializable {
     private String billDesc;
     @Column(nullable = false)
     private Long amount;
-    private boolean paid = false;
-    private boolean pastDue = false;
+    public boolean paid = false;
+    public boolean pastDue = false;
     // @JsonbDateFormat("dd/MM/yyyy")
     // private Date dueDate;
-    private String dueDate;
+    public String dueDate;
     @Column(nullable=false, updatable=false)
     private String billCode;
     private String billType;
@@ -28,7 +28,7 @@ public class Bill implements Serializable {
     public Bill() {}
 
     // public Bill(Long id, String billName, String billDesc, boolean paid, boolean pastDue, String billCode, Date dueDate) {
-    public Bill(Long id, String billName, String billDesc, boolean paid, boolean pastDue, String billCode, String dueDate, String billType, Long amount) {
+    public Bill(Long id, String billName, String billDesc, boolean paid, boolean pastDue, String billCode, String dueDate, String billType, Long amount) throws ParseException {
         this.id = id;
         this.billName = billName;
         this.billDesc = billDesc;
@@ -38,6 +38,19 @@ public class Bill implements Serializable {
         this.dueDate = dueDate;
         this.billType = billType;
         this.amount = amount;
+
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        Date today = new Date();
+        //this.pastDue = sdf.parse(this.dueDate).before(today) && !this.paid;
+        if(!this.paid && sdf.parse(this.dueDate).compareTo(today) < 0) {
+            System.out.println("This bill is past due..!!!");
+            this.pastDue = true;
+        } else {
+            System.out.println("--NOT DUE--");
+            System.out.println(this.pastDue);
+            System.out.println(this.dueDate);
+            System.out.println(today);
+        }
     }
 
     @Override

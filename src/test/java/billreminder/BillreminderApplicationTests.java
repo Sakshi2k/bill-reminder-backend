@@ -1,7 +1,5 @@
 package billreminder;
 
-import java.util.Arrays;
-
 import billreminder.model.Bill;
 import billreminder.resource.BillResource;
 import billreminder.service.BillService;
@@ -22,6 +20,8 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import java.text.ParseException;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @RunWith(SpringRunner.class)
@@ -33,7 +33,7 @@ public class BillreminderApplicationTests {
     private MockMvc mockMvc;
 
     @MockBean
-    private BillService billService;           //
+    private BillService billService;
 
     Long testId = 115L;
 
@@ -51,6 +51,9 @@ public class BillreminderApplicationTests {
             "    \"billCode\": \"b6127dfe-39f4-44ae-8dff-8f86d830ca6e\",\n" +
             "    \"billType\": \"water\"\n" +
             "}";
+
+    public BillreminderApplicationTests() throws ParseException {
+    }
 
     @Test
     public void retrieveBillDetailsByIdTest() throws Exception {

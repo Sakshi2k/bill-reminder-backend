@@ -12,15 +12,7 @@ import java.util.Arrays;
 
 @SpringBootApplication
 public class BillreminderApplication {
-	public static void main(String[] args) {
-
-		/*RestHighLevelClient client = new RestHighLevelClient(RestClient.builder(new HttpHost("localhost", 9200, "http")));
-
-		CreateIndexRequest request = new CreateIndexRequest("sampleindex");
-		request.settings(Settings.builder().put("index.number_of_shards", 1).put("index.number_of_replicas", 2));
-		CreateIndexResponse createIndexResponse = client.indices().create(request, RequestOptions.DEFAULT);
-		System.out.println("response id: " + createIndexResponse.index());*/
-
+	public static void main(String[] args) throws IOException {
 		SpringApplication.run(BillreminderApplication.class, args);
 		System.out.println("Welcome");
 	}
